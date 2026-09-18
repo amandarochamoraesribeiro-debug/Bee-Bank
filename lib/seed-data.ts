@@ -1,5 +1,6 @@
 import type { NewQuestion } from "@/db/schema";
 import { rm2026Ad1Questions } from "./seed-data-rm2026-ad1";
+import { rm2026Ad1QuestionsB2 } from "./seed-data-rm2026-ad1-b2";
 
 // Cada questão tem um `id` estável (não gerado aleatoriamente) para que novos
 // lotes possam ser adicionados a este arquivo e sincronizados via /api/setup
@@ -145,4 +146,5 @@ const questoesAvulsas: Omit<NewQuestion, "createdAt">[] = [
 export const seedQuestions: Omit<NewQuestion, "createdAt">[] = [
   ...questoesAvulsas,
   ...rm2026Ad1Questions,
+  ...rm2026Ad1QuestionsB2,
 ];
