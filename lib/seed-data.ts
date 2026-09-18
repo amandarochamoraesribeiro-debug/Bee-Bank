@@ -1,7 +1,11 @@
 import type { NewQuestion } from "@/db/schema";
 
-export const seedQuestions: Omit<NewQuestion, "id" | "createdAt">[] = [
+// Cada questão tem um `id` estável (não gerado aleatoriamente) para que novos
+// lotes possam ser adicionados a este arquivo e sincronizados via /api/setup
+// sem duplicar ou afetar as questões já existentes.
+export const seedQuestions: Omit<NewQuestion, "createdAt">[] = [
   {
+    id: "usp-sp-2019-clm-pneumonia-comunidade",
     instituicao: "USP-SP",
     ano: 2019,
     grandeArea: "Clínica Médica",
@@ -28,6 +32,7 @@ export const seedQuestions: Omit<NewQuestion, "id" | "createdAt">[] = [
     anulada: false,
   },
   {
+    id: "usp-sp-2018-cir-trauma-renal",
     instituicao: "USP-SP",
     ano: 2018,
     grandeArea: "Cirurgia Geral",
@@ -53,6 +58,7 @@ export const seedQuestions: Omit<NewQuestion, "id" | "createdAt">[] = [
     anulada: false,
   },
   {
+    id: "usp-sp-2019-ped-imunizacao-nefrotica",
     instituicao: "USP-SP",
     ano: 2019,
     grandeArea: "Pediatria",
@@ -77,6 +83,7 @@ export const seedQuestions: Omit<NewQuestion, "id" | "createdAt">[] = [
     anulada: false,
   },
   {
+    id: "usp-sp-2019-go-adenomiose",
     instituicao: "USP-SP",
     ano: 2019,
     grandeArea: "Ginecologia e Obstetrícia",
@@ -103,6 +110,7 @@ export const seedQuestions: Omit<NewQuestion, "id" | "createdAt">[] = [
     anulada: false,
   },
   {
+    id: "usp-sp-2019-prev-fa-hiv",
     instituicao: "USP-SP",
     ano: 2019,
     grandeArea: "Medicina Preventiva e Social",

@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import { db } from "../db";
 import { questions, userAnswers } from "../db/schema";
 import { seedQuestions } from "../lib/seed-data";
@@ -10,7 +9,7 @@ async function main() {
 
   console.log(`Inserindo ${seedQuestions.length} questões...`);
   for (const q of seedQuestions) {
-    await db.insert(questions).values({ id: nanoid(), ...q });
+    await db.insert(questions).values(q);
   }
 
   console.log("Seed concluído com sucesso.");

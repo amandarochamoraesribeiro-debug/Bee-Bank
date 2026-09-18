@@ -1,15 +1,15 @@
 import { NextResponse } from "next/server";
-import { nanoid } from "nanoid";
 import { client, db } from "@/db";
 import { questions } from "@/db/schema";
 import { seedQuestions } from "@/lib/seed-data";
 
 /**
- * Rota de inicialização, visitável no navegador (GET), pensada para quem está
- * hospedando o app e não tem acesso a terminal: cria as tabelas se não
- * existirem e semeia as questões de exemplo apenas se o banco estiver vazio.
- * Idempotente e segura de visitar mais de uma vez — nunca apaga respostas
- * de usuários já existentes.
+ * Rota de inicialização/sincronização, visitável no navegador (GET), pensada
+ * para quem está hospedando o app e não tem acesso a terminal: cria as
+ * tabelas se não existirem e insere apenas as questões de `lib/seed-data.ts`
+ * que ainda não existem no banco (comparando pelo `id` estável de cada uma).
+ * Sempre segura de visitar de novo — nunca duplica, apaga ou altera questões
+ * ou respostas já existentes; só adiciona o que for novo.
  */
 const DDL_STATEMENTS = [
   `CREATE TABLE IF NOT EXISTS questions (
@@ -57,15 +57,17 @@ export async function GET() {
   steps.push("Tabelas verificadas/criadas.");
 
   const existing = await db.select({ id: questions.id }).from(questions);
+  const existingIds = new Set(existing.map((q) => q.id));
 
-  if (existing.length === 0) {
-    for (const q of seedQuestions) {
-      await db.insert(questions).values({ id: nanoid(), ...q });
-    }
-    steps.push(`${seedQuestions.length} questões inseridas.`);
-  } else {
-    steps.push(`Banco já tinha ${existing.length} questão(ões) — nada foi alterado.`);
+  const novas = seedQuestions.filter((q) => !existingIds.has(q.id));
+  for (const q of novas) {
+    await db.insert(questions).values(q);
   }
+
+  if (novas.length > 0) {
+    steps.push(`${novas.length} questão(ões) nova(s) inserida(s).`);
+  }
+  steps.push(`Banco agora tem ${existingIds.size + novas.length} questão(ões) no total.`);
 
   return NextResponse.json({ ok: true, steps });
 }
