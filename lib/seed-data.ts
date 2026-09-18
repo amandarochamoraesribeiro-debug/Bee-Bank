@@ -1,9 +1,10 @@
 import type { NewQuestion } from "@/db/schema";
+import { rm2026Ad1Questions } from "./seed-data-rm2026-ad1";
 
 // Cada questão tem um `id` estável (não gerado aleatoriamente) para que novos
 // lotes possam ser adicionados a este arquivo e sincronizados via /api/setup
 // sem duplicar ou afetar as questões já existentes.
-export const seedQuestions: Omit<NewQuestion, "createdAt">[] = [
+const questoesAvulsas: Omit<NewQuestion, "createdAt">[] = [
   {
     id: "usp-sp-2019-clm-pneumonia-comunidade",
     instituicao: "USP-SP",
@@ -139,4 +140,9 @@ export const seedQuestions: Omit<NewQuestion, "createdAt">[] = [
       "- **(B)** só se aplica quando CD4 < 200 cél/mm³, o que não é o caso.",
     anulada: false,
   },
+];
+
+export const seedQuestions: Omit<NewQuestion, "createdAt">[] = [
+  ...questoesAvulsas,
+  ...rm2026Ad1Questions,
 ];

@@ -6,6 +6,7 @@ export type QuestionWithProgress = {
   id: string;
   instituicao: string;
   ano: number;
+  prova: string | null;
   grandeArea: string;
   tema: string;
   subtema: string;

@@ -22,6 +22,8 @@ export const questions = sqliteTable(
     id: text("id").primaryKey(),
     instituicao: text("instituicao").notNull(),
     ano: integer("ano").notNull(),
+    /** Nome da prova/grupo, exibido como tag (ex.: "Acesso Direto — AD1"). */
+    prova: text("prova"),
     grandeArea: text("grande_area").notNull(),
     tema: text("tema").notNull(),
     subtema: text("subtema").notNull(),

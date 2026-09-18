@@ -22,7 +22,7 @@ export function ImageGallery({ imagens }: { imagens: string[] }) {
             <img
               src={src}
               alt="Imagem clínica da questão"
-              className="max-h-72 w-auto object-contain"
+              className="max-h-[26rem] w-auto object-contain"
             />
             <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/30 group-hover:opacity-100">
               <ZoomIn className="h-6 w-6 text-white" />

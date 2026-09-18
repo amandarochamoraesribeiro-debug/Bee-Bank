@@ -235,12 +235,12 @@ export function QuestionSolver({ queryString }: { queryString: string }) {
       </div>
 
       <div className="rounded-xl border border-forest-200 bg-white p-6 shadow-sm dark:border-forest-800 dark:bg-forest-900">
+        {/* Tags visíveis: prova, ano e caderno. Área/tema ficam guardados para os
+            filtros e só aparecem junto do gabarito, para não entregar a resposta. */}
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="outline">{current.instituicao}</Badge>
           <Badge variant="outline">{current.ano}</Badge>
-          <Badge variant="area">{current.grandeArea}</Badge>
-          <Badge variant="secondary">{current.tema}</Badge>
-          <Badge variant="secondary">{current.subtema}</Badge>
+          {current.prova && <Badge variant="outline">{current.prova}</Badge>}
           {current.anulada && <Badge variant="warning">Anulada</Badge>}
           <span className="ml-auto text-sm font-medium text-forest-400">
             Questão {index + 1} de {questions.length}
@@ -333,6 +333,12 @@ export function QuestionSolver({ queryString }: { queryString: string }) {
               <AccordionContent>
                 <div className="prose prose-slate max-w-none text-sm leading-relaxed dark:prose-invert">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{current.comentarioGabarito}</ReactMarkdown>
+                </div>
+                <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-forest-200 pt-3 dark:border-forest-800">
+                  <span className="text-xs text-forest-500 dark:text-forest-400">Assunto:</span>
+                  <Badge variant="area">{current.grandeArea}</Badge>
+                  <Badge variant="secondary">{current.tema}</Badge>
+                  <Badge variant="secondary">{current.subtema}</Badge>
                 </div>
               </AccordionContent>
             </AccordionItem>

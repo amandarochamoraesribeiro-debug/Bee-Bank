@@ -44,6 +44,7 @@ export async function GET(request: NextRequest) {
     id: r.question.id,
     instituicao: r.question.instituicao,
     ano: r.question.ano,
+    prova: r.question.prova,
     grandeArea: r.question.grandeArea,
     tema: r.question.tema,
     subtema: r.question.subtema,

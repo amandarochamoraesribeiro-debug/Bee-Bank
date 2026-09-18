@@ -16,6 +16,7 @@ const DDL_STATEMENTS = [
     id TEXT PRIMARY KEY,
     instituicao TEXT NOT NULL,
     ano INTEGER NOT NULL,
+    prova TEXT,
     grande_area TEXT NOT NULL,
     tema TEXT NOT NULL,
     subtema TEXT NOT NULL,
@@ -48,11 +49,18 @@ const DDL_STATEMENTS = [
   `CREATE INDEX IF NOT EXISTS user_answers_user_idx ON user_answers (user_id)`,
 ];
 
+/** Colunas adicionadas depois da criação original da tabela. */
+const ADD_COLUMNS = [`ALTER TABLE questions ADD COLUMN prova TEXT`];
+
 export async function GET() {
   const steps: string[] = [];
 
   for (const statement of DDL_STATEMENTS) {
     await client.execute(statement);
+  }
+  for (const statement of ADD_COLUMNS) {
+    // A coluna já existir é o caso esperado em bancos já migrados.
+    await client.execute(statement).catch(() => {});
   }
   steps.push("Tabelas verificadas/criadas.");
 
