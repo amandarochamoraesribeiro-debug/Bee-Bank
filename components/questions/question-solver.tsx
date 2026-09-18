@@ -174,13 +174,13 @@ export function QuestionSolver({ queryString }: { queryString: string }) {
   const progressoPills = useMemo(
     () =>
       questions.map((q, i) => {
-        let tone = "bg-slate-200 text-slate-500 dark:bg-slate-800 dark:text-slate-400";
+        let tone = "bg-forest-200 text-forest-500 dark:bg-forest-800 dark:text-forest-400";
         if (q.progresso.respondida) {
           tone = q.progresso.acertou
             ? "bg-emerald-500 text-white"
             : "bg-red-500 text-white";
         }
-        if (i === index) tone += " ring-2 ring-teal-500 ring-offset-1";
+        if (i === index) tone += " ring-2 ring-gold-500 ring-offset-1";
         return (
           <button
             key={q.id}
@@ -197,7 +197,7 @@ export function QuestionSolver({ queryString }: { queryString: string }) {
 
   if (loading) {
     return (
-      <div className="flex h-[60vh] items-center justify-center gap-2 text-slate-500">
+      <div className="flex h-[60vh] items-center justify-center gap-2 text-forest-500">
         <Loader2 className="h-5 w-5 animate-spin" /> Montando seu caderno de questões...
       </div>
     );
@@ -224,17 +224,17 @@ export function QuestionSolver({ queryString }: { queryString: string }) {
             <ChevronLeft className="h-4 w-4" /> Filtros
           </Link>
         </Button>
-        <div className="flex items-center gap-1 text-xs text-slate-400">
+        <div className="flex items-center gap-1 text-xs text-forest-400">
           <Keyboard className="h-3.5 w-3.5" />
           <span>1-5 selecionar · Enter responder/avançar · ←/→ navegar · F favoritar · R caderno · G gabarito</span>
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-1.5 rounded-lg border border-slate-200 bg-white p-2 dark:border-slate-800 dark:bg-slate-900">
+      <div className="flex flex-wrap gap-1.5 rounded-lg border border-forest-200 bg-white p-2 dark:border-forest-800 dark:bg-forest-900">
         {progressoPills}
       </div>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <div className="rounded-xl border border-forest-200 bg-white p-6 shadow-sm dark:border-forest-800 dark:bg-forest-900">
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="outline">{current.instituicao}</Badge>
           <Badge variant="outline">{current.ano}</Badge>
@@ -242,7 +242,7 @@ export function QuestionSolver({ queryString }: { queryString: string }) {
           <Badge variant="secondary">{current.tema}</Badge>
           <Badge variant="secondary">{current.subtema}</Badge>
           {current.anulada && <Badge variant="warning">Anulada</Badge>}
-          <span className="ml-auto text-sm font-medium text-slate-400">
+          <span className="ml-auto text-sm font-medium text-forest-400">
             Questão {index + 1} de {questions.length}
           </span>
         </div>
@@ -266,25 +266,25 @@ export function QuestionSolver({ queryString }: { queryString: string }) {
                 onClick={() => setSelected(alt.letra)}
                 className={cn(
                   "flex items-start gap-3 rounded-lg border p-3 text-left text-sm transition disabled:cursor-default",
-                  "border-slate-200 dark:border-slate-700",
-                  isSelected && !showState && "border-teal-500 bg-teal-50 dark:bg-teal-950/30",
+                  "border-forest-200 dark:border-forest-700",
+                  isSelected && !showState && "border-gold-500 bg-gold-50 dark:bg-gold-950/30",
                   showState && isCorrect && "border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30",
                   showState && isSelected && !isCorrect && "border-red-500 bg-red-50 dark:bg-red-950/30",
-                  !showState && "hover:border-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/60"
+                  !showState && "hover:border-gold-400 hover:bg-forest-50 dark:hover:bg-forest-800/60"
                 )}
               >
                 <span
                   className={cn(
                     "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-xs font-bold",
-                    isSelected && !showState && "border-teal-500 bg-teal-500 text-white",
+                    isSelected && !showState && "border-gold-500 bg-gold-500 text-white",
                     showState && isCorrect && "border-emerald-500 bg-emerald-500 text-white",
                     showState && isSelected && !isCorrect && "border-red-500 bg-red-500 text-white",
-                    !isSelected && !(showState && isCorrect) && "border-slate-300 text-slate-500 dark:border-slate-600"
+                    !isSelected && !(showState && isCorrect) && "border-forest-300 text-forest-500 dark:border-forest-600"
                   )}
                 >
                   {alt.letra}
                 </span>
-                <span className="flex-1 text-slate-700 dark:text-slate-300">{alt.texto}</span>
+                <span className="flex-1 text-forest-700 dark:text-forest-300">{alt.texto}</span>
                 {showState && isCorrect && <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600" />}
                 {showState && isSelected && !isCorrect && <XCircle className="h-5 w-5 shrink-0 text-red-600" />}
               </button>
@@ -326,8 +326,8 @@ export function QuestionSolver({ queryString }: { queryString: string }) {
 
         {current.progresso.respondida && revealed && (
           <Accordion type="single" collapsible defaultValue="gabarito" className="mt-5">
-            <AccordionItem value="gabarito" className="rounded-lg border border-slate-200 px-3 dark:border-slate-800">
-              <AccordionTrigger className="text-sm font-semibold text-teal-700 dark:text-teal-400">
+            <AccordionItem value="gabarito" className="rounded-lg border border-forest-200 px-3 dark:border-forest-800">
+              <AccordionTrigger className="text-sm font-semibold text-gold-700 dark:text-gold-400">
                 Gabarito oficial: {current.gabaritoOficial} — Comentário detalhado
               </AccordionTrigger>
               <AccordionContent>

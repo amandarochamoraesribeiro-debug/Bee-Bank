@@ -99,16 +99,16 @@ export default function HomePage() {
   return (
     <div className="mx-auto flex max-w-[1400px] flex-col gap-6 px-4 py-6 sm:px-6 lg:flex-row">
       <aside className="w-full shrink-0 lg:w-80">
-        <div className="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
-          <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-800">
-            <div className="flex items-center gap-2 font-semibold text-slate-900 dark:text-slate-100">
-              <Filter className="h-4 w-4 text-teal-600" />
+        <div className="rounded-xl border border-forest-200 bg-white shadow-sm dark:border-forest-800 dark:bg-forest-900">
+          <div className="flex items-center justify-between border-b border-forest-200 px-4 py-3 dark:border-forest-800">
+            <div className="flex items-center gap-2 font-semibold text-forest-900 dark:text-forest-100">
+              <Filter className="h-4 w-4 text-gold-600" />
               Filtros
             </div>
             {filtrosAtivos > 0 && (
               <button
                 onClick={limparFiltros}
-                className="flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-teal-700 dark:hover:text-teal-400"
+                className="flex items-center gap-1 text-xs font-medium text-forest-500 hover:text-gold-700 dark:hover:text-gold-400"
               >
                 <RotateCcw className="h-3 w-3" /> Limpar
               </button>
@@ -184,12 +184,12 @@ export default function HomePage() {
       </aside>
 
       <section className="flex-1">
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-          <div className="flex items-center gap-2 text-teal-700 dark:text-teal-400">
+        <div className="rounded-xl border border-forest-200 bg-white p-6 shadow-sm dark:border-forest-800 dark:bg-forest-900">
+          <div className="flex items-center gap-2 text-gold-700 dark:text-gold-400">
             <BookOpenCheck className="h-6 w-6" />
             <h1 className="text-xl font-bold">Banco de Questões — Residência Médica R1</h1>
           </div>
-          <p className="mt-2 max-w-2xl text-sm text-slate-600 dark:text-slate-400">
+          <p className="mt-2 max-w-2xl text-sm text-forest-600 dark:text-forest-400">
             Selecione os filtros ao lado (instituição, ano, grande área, tema, subtema e status) para
             montar seu caderno de estudo. As grandes áreas cobertas são Clínica Médica, Cirurgia Geral,
             Pediatria, Ginecologia e Obstetrícia e Medicina Preventiva e Social.
@@ -203,9 +203,9 @@ export default function HomePage() {
             <StatCard label="Favoritas" value={data.counts.favoritas} tone="warning" />
           </div>
 
-          <div className="mt-8 flex flex-col items-start gap-3 rounded-lg bg-teal-50 p-5 dark:bg-teal-950/30 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-8 flex flex-col items-start gap-3 rounded-lg bg-gold-50 p-5 dark:bg-gold-950/30 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="font-semibold text-teal-900 dark:text-teal-300">
+              <p className="font-semibold text-gold-900 dark:text-gold-300">
                 {loading ? (
                   <span className="inline-flex items-center gap-2">
                     <Loader2 className="h-4 w-4 animate-spin" /> Calculando questões...
@@ -214,7 +214,7 @@ export default function HomePage() {
                   `${questoesSelecionadas} questõe${questoesSelecionadas === 1 ? "" : "s"} encontrada${questoesSelecionadas === 1 ? "" : "s"}`
                 )}
               </p>
-              <p className="text-sm text-teal-700/80 dark:text-teal-400/80">
+              <p className="text-sm text-gold-700/80 dark:text-gold-400/80">
                 {filtrosAtivos > 0
                   ? `${filtrosAtivos} filtro${filtrosAtivos === 1 ? "" : "s"} ativo${filtrosAtivos === 1 ? "" : "s"}`
                   : "Nenhum filtro selecionado — todas as questões serão incluídas."}
@@ -238,7 +238,7 @@ export default function HomePage() {
 function FilterSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+      <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-forest-500 dark:text-forest-400">
         {title}
       </h3>
       {children}
@@ -247,7 +247,7 @@ function FilterSection({ title, children }: { title: string; children: React.Rea
 }
 
 function EmptyHint() {
-  return <p className="text-xs italic text-slate-400">Nenhuma opção disponível.</p>;
+  return <p className="text-xs italic text-forest-400">Nenhuma opção disponível.</p>;
 }
 
 function StatCard({
@@ -266,10 +266,10 @@ function StatCard({
         ? "text-red-600 dark:text-red-400"
         : tone === "warning"
           ? "text-amber-600 dark:text-amber-400"
-          : "text-slate-900 dark:text-slate-100";
+          : "text-forest-900 dark:text-forest-100";
   return (
-    <div className="rounded-lg border border-slate-200 p-3 dark:border-slate-800">
-      <p className="text-xs text-slate-500 dark:text-slate-400">{label}</p>
+    <div className="rounded-lg border border-forest-200 p-3 dark:border-forest-800">
+      <p className="text-xs text-forest-500 dark:text-forest-400">{label}</p>
       <p className={`text-2xl font-bold tabular-nums ${toneClass}`}>{value}</p>
     </div>
   );

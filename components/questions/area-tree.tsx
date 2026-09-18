@@ -66,7 +66,7 @@ function AreaNode({
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="rounded p-0.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+          className="rounded p-0.5 text-forest-400 hover:text-forest-700 dark:hover:text-forest-200"
           aria-label={open ? "Recolher" : "Expandir"}
         >
           <ChevronRight className={cn("h-4 w-4 transition-transform", open && "rotate-90")} />
@@ -80,7 +80,7 @@ function AreaNode({
         />
       </div>
       {open && (
-        <div className="ml-6 mt-0.5 flex flex-col gap-0.5 border-l border-slate-200 pl-2 dark:border-slate-800">
+        <div className="ml-6 mt-0.5 flex flex-col gap-0.5 border-l border-forest-200 pl-2 dark:border-forest-800">
           {area.temas.map((tema) => (
             <TemaNode
               key={tema.tema}
@@ -120,7 +120,7 @@ function TemaNode({
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="rounded p-0.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+            className="rounded p-0.5 text-forest-400 hover:text-forest-700 dark:hover:text-forest-200"
             aria-label={open ? "Recolher" : "Expandir"}
           >
             <ChevronRight className={cn("h-3.5 w-3.5 transition-transform", open && "rotate-90")} />
@@ -137,7 +137,7 @@ function TemaNode({
         />
       </div>
       {open && hasSubtemas && (
-        <div className="ml-5 mt-0.5 flex flex-col gap-0.5 border-l border-slate-200 pl-2 dark:border-slate-800">
+        <div className="ml-5 mt-0.5 flex flex-col gap-0.5 border-l border-forest-200 pl-2 dark:border-forest-800">
           {tema.subtemas.map((subtema) => (
             <CheckboxRow
               key={subtema}

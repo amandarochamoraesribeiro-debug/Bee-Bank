@@ -17,7 +17,7 @@ export function ImageGallery({ imagens }: { imagens: string[] }) {
             key={src}
             type="button"
             onClick={() => setOpen(src)}
-            className="group relative overflow-hidden rounded-lg border border-slate-200 bg-slate-100 shadow-sm transition hover:border-teal-400 dark:border-slate-700 dark:bg-slate-800"
+            className="group relative overflow-hidden rounded-lg border border-forest-200 bg-forest-100 shadow-sm transition hover:border-gold-400 dark:border-forest-700 dark:bg-forest-800"
           >
             <img
               src={src}

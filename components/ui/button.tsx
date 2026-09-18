@@ -4,19 +4,19 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-teal-500 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gold-500 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-teal-600 text-white shadow hover:bg-teal-700",
+        default: "bg-gold-500 text-forest-950 shadow hover:bg-gold-600",
         destructive: "bg-red-600 text-white shadow-sm hover:bg-red-700",
         outline:
-          "border border-slate-200 bg-white shadow-sm hover:bg-slate-50 text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800",
+          "border border-forest-200 bg-white shadow-sm hover:bg-forest-50 text-forest-900 dark:border-forest-700 dark:bg-forest-900 dark:text-forest-100 dark:hover:bg-forest-800",
         secondary:
-          "bg-slate-100 text-slate-900 shadow-sm hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-100",
-        ghost: "hover:bg-slate-100 text-slate-700 dark:text-slate-300 dark:hover:bg-slate-800",
+          "bg-forest-100 text-forest-900 shadow-sm hover:bg-forest-200 dark:bg-forest-800 dark:text-forest-100",
+        ghost: "hover:bg-forest-100 text-forest-700 dark:text-forest-300 dark:hover:bg-forest-800",
         success: "bg-emerald-600 text-white shadow hover:bg-emerald-700",
-        link: "text-teal-700 underline-offset-4 hover:underline",
+        link: "text-gold-700 underline-offset-4 hover:underline",
       },
       size: {
         default: "h-9 px-4 py-2",

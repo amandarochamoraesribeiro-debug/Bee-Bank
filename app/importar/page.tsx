@@ -64,16 +64,16 @@ export default function ImportarPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-8 sm:px-6">
       <div>
-        <h1 className="flex items-center gap-2 text-xl font-bold text-teal-700 dark:text-teal-400">
+        <h1 className="flex items-center gap-2 text-xl font-bold text-gold-700 dark:text-gold-400">
           <FileJson className="h-6 w-6" /> Gerenciador de Questões / Importador
         </h1>
-        <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+        <p className="mt-2 text-sm text-forest-600 dark:text-forest-400">
           Cole um JSON estruturado no formato abaixo (campo <code>questions</code> como array) e clique em
           Importar. As imagens referenciadas devem ser colocadas previamente em{" "}
           <code>public/images/questions/</code> e referenciadas pelo caminho público, ex.{" "}
           <code>/images/questions/arquivo.png</code>.
         </p>
-        <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+        <p className="mt-2 text-sm text-forest-600 dark:text-forest-400">
           <strong>Grandes áreas aceitas:</strong> {GRANDES_AREAS.join(", ")}.
         </p>
       </div>
@@ -82,7 +82,7 @@ export default function ImportarPage() {
         value={text}
         onChange={(e) => setText(e.target.value)}
         spellCheck={false}
-        className="h-[420px] w-full rounded-lg border border-slate-200 bg-white p-3 font-mono text-xs leading-relaxed shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 dark:border-slate-700 dark:bg-slate-900"
+        className="h-[420px] w-full rounded-lg border border-forest-200 bg-white p-3 font-mono text-xs leading-relaxed shadow-sm focus:outline-none focus:ring-2 focus:ring-gold-500 dark:border-forest-700 dark:bg-forest-900"
       />
 
       <div className="flex items-center gap-3">
@@ -96,7 +96,7 @@ export default function ImportarPage() {
       </div>
 
       {result && (
-        <pre className="whitespace-pre-wrap rounded-lg border border-slate-200 bg-slate-50 p-4 text-xs dark:border-slate-800 dark:bg-slate-900">
+        <pre className="whitespace-pre-wrap rounded-lg border border-forest-200 bg-forest-50 p-4 text-xs dark:border-forest-800 dark:bg-forest-900">
           {result}
         </pre>
       )}

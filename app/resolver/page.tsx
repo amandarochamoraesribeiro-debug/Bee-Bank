@@ -14,7 +14,7 @@ export default function ResolverPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex h-[60vh] items-center justify-center gap-2 text-slate-500">
+        <div className="flex h-[60vh] items-center justify-center gap-2 text-forest-500">
           <Loader2 className="h-5 w-5 animate-spin" /> Carregando...
         </div>
       }
