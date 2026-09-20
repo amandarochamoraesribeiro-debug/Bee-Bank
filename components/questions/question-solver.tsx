@@ -22,6 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ImageGallery } from "./image-gallery";
 import { getUserId } from "@/lib/user";
+import { preservarQuebras } from "@/lib/markdown";
 import { cn } from "@/lib/utils";
 import type { QuestionWithProgress } from "@/lib/types";
 
@@ -273,7 +274,7 @@ export function QuestionSolver({ queryString }: { queryString: string }) {
         </div>
 
         <div className="prose prose-slate mt-4 max-w-none text-[15px] leading-relaxed dark:prose-invert">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{current.enunciado}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{preservarQuebras(current.enunciado)}</ReactMarkdown>
         </div>
 
         <ImageGallery imagens={current.imagens} />
@@ -357,7 +358,17 @@ export function QuestionSolver({ queryString }: { queryString: string }) {
               </AccordionTrigger>
               <AccordionContent>
                 <div className="prose prose-slate max-w-none text-sm leading-relaxed dark:prose-invert">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{current.comentarioGabarito}</ReactMarkdown>
+                  {current.comentarioGabarito.trim() ? (
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {preservarQuebras(current.comentarioGabarito)}
+                    </ReactMarkdown>
+                  ) : (
+                    // Provas recém-importadas entram com o gabarito e sem comentário;
+                    // melhor dizer isso do que mostrar um espaço vazio.
+                    <p className="italic text-forest-500 dark:text-forest-400">
+                      Comentário em preparo para esta questão. O gabarito oficial acima já vale.
+                    </p>
+                  )}
                 </div>
                 <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-forest-200 pt-3 dark:border-forest-800">
                   <span className="text-xs text-forest-500 dark:text-forest-400">Assunto:</span>

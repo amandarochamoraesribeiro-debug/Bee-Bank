@@ -22,6 +22,9 @@ export async function GET() {
     if (report.questoesInseridas > 0) {
       steps.push(`${report.questoesInseridas} questão(ões) nova(s) inserida(s).`);
     }
+    if (report.questoesAtualizadas > 0) {
+      steps.push(`${report.questoesAtualizadas} questão(ões) já existente(s) atualizada(s).`);
+    }
     steps.push(`Banco agora tem ${report.totalQuestoes} questão(ões) no total.`);
     return NextResponse.json({ ok: true, steps });
   } catch (error) {

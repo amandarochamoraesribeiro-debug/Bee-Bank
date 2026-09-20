@@ -16,6 +16,7 @@ const questionInputSchema = z.object({
   instituicao: z.string().min(1),
   ano: z.number().int().min(1990).max(2100),
   prova: z.string().optional(),
+  ordem: z.number().int().optional(),
   grandeArea: z.enum(GRANDES_AREAS),
   tema: z.string().min(1),
   subtema: z.string().min(1),
@@ -24,7 +25,7 @@ const questionInputSchema = z.object({
   tipo: z.string().optional().default("multipla_escolha"),
   alternativas: z.array(alternativaSchema).min(2),
   gabaritoOficial: z.string().min(1),
-  comentarioGabarito: z.string().min(1),
+  comentarioGabarito: z.string().optional().default(""),
   anulada: z.boolean().optional().default(false),
 });
 
@@ -60,6 +61,7 @@ async function handlePost(request: NextRequest) {
     instituicao: q.instituicao,
     ano: q.ano,
     prova: q.prova ?? null,
+    ordem: q.ordem ?? null,
     grandeArea: q.grandeArea,
     tema: q.tema,
     subtema: q.subtema,

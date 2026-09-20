@@ -34,6 +34,14 @@ export const questions = sqliteTable(
     gabaritoOficial: text("gabarito_oficial").notNull(),
     comentarioGabarito: text("comentario_gabarito").notNull(),
     anulada: integer("anulada", { mode: "boolean" }).notNull().default(false),
+    /** Posição da questão dentro da prova — o número impresso no caderno. */
+    ordem: integer("ordem"),
+    /**
+     * Impressão digital do conteúdo vindo de `data/provas/`. Serve para o app
+     * detectar, sozinho, que uma questão foi corrigida e atualizar a linha do
+     * banco — sem precisar comparar todos os campos a cada acesso.
+     */
+    conteudoHash: text("conteudo_hash"),
     createdAt: integer("created_at", { mode: "timestamp" })
       .notNull()
       .default(sql`(unixepoch())`),
@@ -43,6 +51,7 @@ export const questions = sqliteTable(
     index("questions_instituicao_idx").on(table.instituicao),
     index("questions_ano_idx").on(table.ano),
     index("questions_tema_idx").on(table.tema),
+    index("questions_ordem_idx").on(table.ano, table.ordem),
   ]
 );
 

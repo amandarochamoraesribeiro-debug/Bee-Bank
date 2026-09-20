@@ -49,7 +49,7 @@ async function handleGet(request: NextRequest) {
       and(eq(userAnswers.questionId, questions.id), eq(userAnswers.userId, userId))
     )
     .where(conditions.length ? and(...conditions) : undefined)
-    .orderBy(questions.ano, questions.id)
+    .orderBy(questions.ano, questions.ordem, questions.id)
     .limit(limit);
 
   const result: QuestionWithProgress[] = rows.map((r) => ({
