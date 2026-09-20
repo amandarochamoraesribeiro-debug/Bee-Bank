@@ -3,6 +3,8 @@ import { nanoid } from "nanoid";
 import { z } from "zod";
 import { db, questions } from "@/lib/db-queries";
 import { GRANDES_AREAS } from "@/db/schema";
+import { ensureDatabaseReady } from "@/lib/db-init";
+import { apiError } from "@/lib/api-error";
 
 const alternativaSchema = z.object({
   letra: z.string().min(1).max(2),
@@ -31,6 +33,16 @@ const bodySchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
+  try {
+    return await handlePost(request);
+  } catch (error) {
+    return apiError(error);
+  }
+}
+
+async function handlePost(request: NextRequest) {
+  await ensureDatabaseReady();
+
   let json: unknown;
   try {
     json = await request.json();
@@ -66,6 +78,11 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
+  try {
+    await ensureDatabaseReady();
+  } catch (error) {
+    return apiError(error);
+  }
   const all = await db.select({ id: questions.id }).from(questions);
   return NextResponse.json({ total: all.length });
 }

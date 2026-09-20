@@ -23,6 +23,7 @@ export default function HomePage() {
   const [userId] = useState(() => getUserId());
   const [data, setData] = useState<FiltersResponse>(emptyFilters);
   const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState<string | null>(null);
 
   const [instituicoes, setInstituicoes] = useState<Set<string>>(new Set());
   const [anos, setAnos] = useState<Set<number>>(new Set());
@@ -49,9 +50,16 @@ export default function HomePage() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
     fetch(`/api/filters?${query}`)
-      .then((r) => r.json())
-      .then((json: FiltersResponse) => {
-        if (!cancelled) setData(json);
+      .then(async (r) => {
+        const json = (await r.json()) as FiltersResponse & { error?: string };
+        if (!r.ok || json.error) throw new Error(json.error ?? `Erro ${r.status} ao buscar filtros`);
+        if (!cancelled) {
+          setData(json);
+          setErro(null);
+        }
+      })
+      .catch((e: unknown) => {
+        if (!cancelled) setErro(e instanceof Error ? e.message : String(e));
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -98,6 +106,18 @@ export default function HomePage() {
 
   return (
     <div className="mx-auto flex max-w-[1400px] flex-col gap-6 px-4 py-6 sm:px-6 lg:flex-row">
+      {/* Falha de banco não pode virar "0 questões" silencioso: a mensagem real
+          aparece para que dê para saber o que corrigir. */}
+      {erro && (
+        <div className="w-full rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-red-800 lg:order-first dark:border-red-800 dark:bg-red-950 dark:text-red-200">
+          <p className="font-semibold">Não consegui carregar o banco de questões.</p>
+          <p className="mt-1 font-mono text-xs break-words">{erro}</p>
+          <p className="mt-2">
+            Recarregue a página. Se continuar assim, abra <code>/api/setup</code> e mande a mensagem
+            que aparecer lá.
+          </p>
+        </div>
+      )}
       <aside className="w-full shrink-0 lg:w-80">
         <div className="rounded-xl border border-forest-200 bg-white shadow-sm dark:border-forest-800 dark:bg-forest-900">
           <div className="flex items-center justify-between border-b border-forest-200 px-4 py-3 dark:border-forest-800">

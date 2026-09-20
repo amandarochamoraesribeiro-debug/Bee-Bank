@@ -3,6 +3,8 @@ import { and, eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { z } from "zod";
 import { db, questions, userAnswers } from "@/lib/db-queries";
+import { ensureDatabaseReady } from "@/lib/db-init";
+import { apiError } from "@/lib/api-error";
 
 const bodySchema = z.object({
   userId: z.string().min(1),
@@ -14,6 +16,16 @@ const bodySchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
+  try {
+    return await handlePost(request);
+  } catch (error) {
+    return apiError(error);
+  }
+}
+
+async function handlePost(request: NextRequest) {
+  await ensureDatabaseReady();
+
   const json = await request.json();
   const parsed = bodySchema.safeParse(json);
   if (!parsed.success) {

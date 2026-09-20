@@ -2,9 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { and, eq } from "drizzle-orm";
 import { db, questions, userAnswers } from "@/lib/db-queries";
 import { baseTaxonomyConditions, parseListParam, parseNumberListParam, statusCondition } from "@/lib/db-queries";
+import { ensureDatabaseReady } from "@/lib/db-init";
+import { apiError } from "@/lib/api-error";
 import type { QuestionStatus, QuestionWithProgress } from "@/lib/types";
 
 export async function GET(request: NextRequest) {
+  try {
+    return await handleGet(request);
+  } catch (error) {
+    return apiError(error);
+  }
+}
+
+async function handleGet(request: NextRequest) {
+  await ensureDatabaseReady();
+
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get("userId") ?? "";
 

@@ -29,6 +29,7 @@ export function QuestionSolver({ queryString }: { queryString: string }) {
   const [userId] = useState(() => getUserId());
   const [questions, setQuestions] = useState<QuestionWithProgress[]>([]);
   const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState<string | null>(null);
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [revealed, setRevealed] = useState(false);
@@ -40,12 +41,19 @@ export function QuestionSolver({ queryString }: { queryString: string }) {
     // Data fetch triggered by filter/user changes: loading flag mirrors the in-flight request.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
+    setErro(null);
     const params = new URLSearchParams(queryString);
     params.set("userId", userId);
     fetch(`/api/questions?${params.toString()}`)
-      .then((r) => r.json())
-      .then((json: { questions: QuestionWithProgress[] }) => {
-        setQuestions(json.questions);
+      .then(async (r) => {
+        const json = (await r.json()) as { questions?: QuestionWithProgress[]; error?: string };
+        // Sem isso, uma falha de banco vira uma lista vazia e a tela mente
+        // dizendo que nenhuma questão bate com os filtros.
+        if (!r.ok || json.error) throw new Error(json.error ?? `Erro ${r.status} ao buscar questões`);
+        setQuestions(json.questions ?? []);
+      })
+      .catch((e: unknown) => {
+        setErro(e instanceof Error ? e.message : String(e));
       })
       .finally(() => setLoading(false));
   }, [queryString, userId]);
@@ -199,6 +207,23 @@ export function QuestionSolver({ queryString }: { queryString: string }) {
     return (
       <div className="flex h-[60vh] items-center justify-center gap-2 text-forest-500">
         <Loader2 className="h-5 w-5 animate-spin" /> Montando seu caderno de questões...
+      </div>
+    );
+  }
+
+  if (erro) {
+    return (
+      <div className="mx-auto flex max-w-lg flex-col items-center gap-4 py-24 text-center">
+        <p className="text-lg font-semibold">Não consegui carregar as questões.</p>
+        <p className="rounded-lg bg-red-50 px-3 py-2 font-mono text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
+          {erro}
+        </p>
+        <p className="text-sm text-forest-500">
+          Tente recarregar a página. Se continuar, abra <code>/api/setup</code> e mande a mensagem que aparecer.
+        </p>
+        <Button asChild>
+          <Link href="/">Voltar para os filtros</Link>
+        </Button>
       </div>
     );
   }

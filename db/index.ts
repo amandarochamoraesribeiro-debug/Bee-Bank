@@ -8,6 +8,9 @@ const url =
   process.env.TURSO_DATABASE_URL ?? process.env.turso_TURSO_DATABASE_URL ?? "file:./local.db";
 const authToken = process.env.TURSO_AUTH_TOKEN ?? process.env.turso_TURSO_AUTH_TOKEN;
 
+/** Verdadeiro quando caímos no arquivo local por falta das variáveis do Turso. */
+export const isLocalFallback = url.startsWith("file:");
+
 export const client = createClient(
   authToken ? { url, authToken } : { url }
 );
